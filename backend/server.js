@@ -8,7 +8,12 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://doodlebox.sammosios.com', // frontend origin
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 const { APP_ID, PRIVATE_KEY_PATH, INSTALLATION_ID, GITHUB_REPO_OWNER, GITHUB_REPO_NAME } = process.env;
@@ -43,7 +48,7 @@ app.post('/spawn', async (req, res) => {
       repo: GITHUB_REPO_NAME,
       event_type: 'deploy-ephemeral-infra',
       client_payload: {
-        custom_string: 'this-is-my-string',
+        custom_string: username,
       }
     });
 
