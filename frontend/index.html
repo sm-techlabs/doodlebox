@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doodlebox</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+    }
+    #canvas {
+      border: 1px solid black;
+      width: 500px;
+      height: 500px;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Doodlebox</h1>
+    <div id="canvas"></div>
+    <br>
+    <input type="text" id="username" placeholder="Enter your username">
+    <button id="magic-button">Magic Button</button>
+    <p id="feedback"></p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
