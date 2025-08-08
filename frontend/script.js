@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/spawn', {
+      const response = await fetch(window.APP_CONFIG.API_BASE_URL +'/spawn', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

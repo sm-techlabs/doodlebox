@@ -38,19 +38,24 @@ app.post('/spawn', async (req, res) => {
   try {
     const octokit = await octokitApp.getInstallationOctokit(Number(INSTALLATION_ID));
 
-    await octokit.request('POST /repos/{owner}/{repo}/dispatches', {
-      owner: 'sm-techlabs',
-      repo: 'oci-infra-art',
+    const response = await octokit.request('POST /repos/{owner}/{repo}/dispatches', {
+      owner: GITHUB_REPO_OWNER,
+      repo: GITHUB_REPO_NAME,
       event_type: 'deploy-ephemeral-infra',
       client_payload: {
         custom_string: 'this-is-my-string',
       }
     });
 
+    if (response.status !== 204) {
+      console.error('GitHub API responded with non-204 status:', response.status, response.data);
+      return res.status(502).json({ error: 'GitHub API error', details: response.data });
+    }
+
     res.json({ message: 'Doodle spawned successfully!' });
   } catch (error) {
-    console.error('Error spawning doodle:', error);
-    res.status(500).json({ error: 'Failed to spawn doodle' });
+    console.error('Error spawning doodle:', error.message, error.response?.data);
+    res.status(500).json({ error: 'Failed to spawn doodle', details: error.message, github: error.response?.data });
   }
 });
 
